@@ -10,7 +10,6 @@
 		C40C54C52BE1426B00028145 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C54C42BE1426B00028145 /* AppDelegate.swift */; };
 		C40C54C72BE1426B00028145 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C54C62BE1426B00028145 /* SceneDelegate.swift */; };
 		C40C54C92BE1426B00028145 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C54C82BE1426B00028145 /* ViewController.swift */; };
-		C40C54CC2BE1426B00028145 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C40C54CA2BE1426B00028145 /* Main.storyboard */; };
 		C40C54CE2BE1426E00028145 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C40C54CD2BE1426E00028145 /* Assets.xcassets */; };
 		C40C54D12BE1426E00028145 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C40C54CF2BE1426E00028145 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -20,7 +19,6 @@
 		C40C54C42BE1426B00028145 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C40C54C62BE1426B00028145 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C40C54C82BE1426B00028145 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		C40C54CB2BE1426B00028145 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C40C54CD2BE1426E00028145 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C40C54D02BE1426E00028145 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C40C54D22BE1426E00028145 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,15 +54,38 @@
 		C40C54C32BE1426B00028145 /* Tracker */ = {
 			isa = PBXGroup;
 			children = (
-				C40C54C42BE1426B00028145 /* AppDelegate.swift */,
-				C40C54C62BE1426B00028145 /* SceneDelegate.swift */,
-				C40C54C82BE1426B00028145 /* ViewController.swift */,
-				C40C54CA2BE1426B00028145 /* Main.storyboard */,
+				C40C54D82BE142E100028145 /* Common */,
+				C40C54D92BE142E800028145 /* View */,
+				C40C54DA2BE142F100028145 /* Models */,
+			);
+			path = Tracker;
+			sourceTree = "<group>";
+		};
+		C40C54D82BE142E100028145 /* Common */ = {
+			isa = PBXGroup;
+			children = (
 				C40C54CD2BE1426E00028145 /* Assets.xcassets */,
 				C40C54CF2BE1426E00028145 /* LaunchScreen.storyboard */,
 				C40C54D22BE1426E00028145 /* Info.plist */,
+				C40C54C42BE1426B00028145 /* AppDelegate.swift */,
+				C40C54C62BE1426B00028145 /* SceneDelegate.swift */,
 			);
-			path = Tracker;
+			path = Common;
+			sourceTree = "<group>";
+		};
+		C40C54D92BE142E800028145 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C40C54C82BE1426B00028145 /* ViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C40C54DA2BE142F100028145 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,7 +148,6 @@
 			files = (
 				C40C54D12BE1426E00028145 /* LaunchScreen.storyboard in Resources */,
 				C40C54CE2BE1426E00028145 /* Assets.xcassets in Resources */,
-				C40C54CC2BE1426B00028145 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,14 +167,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		C40C54CA2BE1426B00028145 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C40C54CB2BE1426B00028145 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		C40C54CF2BE1426E00028145 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -294,12 +306,13 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Z8Z6N5YK7S;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Tracker/Info.plist;
+				INFOPLIST_FILE = Tracker/Common/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -309,7 +322,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -322,12 +335,13 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Z8Z6N5YK7S;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Tracker/Info.plist;
+				INFOPLIST_FILE = Tracker/Common/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -337,7 +351,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
