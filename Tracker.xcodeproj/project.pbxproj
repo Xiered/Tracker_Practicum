@@ -23,6 +23,7 @@
 		C40C54F72BE14C9B00028145 /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C54F62BE14C9B00028145 /* SwitchCell.swift */; };
 		C40C54F92BE14CA600028145 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C54F82BE14CA600028145 /* CategoryCell.swift */; };
 		C40C54FB2BE14CBD00028145 /* TrackersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C54FA2BE14CBD00028145 /* TrackersViewController.swift */; };
+		C40C54FD2BE14F6E00028145 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C54FC2BE14F6E00028145 /* StatisticsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		C40C54F62BE14C9B00028145 /* SwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
 		C40C54F82BE14CA600028145 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		C40C54FA2BE14CBD00028145 /* TrackersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersViewController.swift; sourceTree = "<group>"; };
+		C40C54FC2BE14F6E00028145 /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 		C40C54EC2BE14C3A00028145 /* Statistics */ = {
 			isa = PBXGroup;
 			children = (
+				C40C54FC2BE14F6E00028145 /* StatisticsViewController.swift */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 				C40C54E92BE14B8B00028145 /* TabBarViewController.swift in Sources */,
 				C40C54DC2BE1447500028145 /* Tracker.swift in Sources */,
 				C40C54C52BE1426B00028145 /* AppDelegate.swift in Sources */,
+				C40C54FD2BE14F6E00028145 /* StatisticsViewController.swift in Sources */,
 				C40C54F72BE14C9B00028145 /* SwitchCell.swift in Sources */,
 				C40C54C72BE1426B00028145 /* SceneDelegate.swift in Sources */,
 				C40C54E32BE144BF00028145 /* CellModel.swift in Sources */,
@@ -425,7 +429,6 @@
 				INFOPLIST_FILE = Tracker/Common/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
@@ -454,7 +457,6 @@
 				INFOPLIST_FILE = Tracker/Common/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;

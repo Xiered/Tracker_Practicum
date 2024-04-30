@@ -24,6 +24,18 @@ final class TabBarViewController: UITabBarController {
         let trackersVC = TrackersViewController()
         let trackersNavigationController = UINavigationController(rootViewController: trackersVC)
         
+        trackersVC.tabBarItem = UITabBarItem(title: "Трекеры",
+                                            image: UIImage(named: "tabBarTrackerIcon"),
+                                            selectedImage: nil)
+        trackersVC.tabBarItem.accessibilityIdentifier = "TrackerView"
         
+        let statisticsVC = StatisticsViewController()
+        
+        statisticsVC.tabBarItem = UITabBarItem(title: "Статистика",
+                                               image: UIImage(named: "tabBarStatisticLogo"),
+                                               selectedImage: nil)
+        statisticsVC.tabBarItem.accessibilityIdentifier = "StatisticView"
+        
+        self.viewControllers = [trackersNavigationController, statisticsVC]
     }
 }
