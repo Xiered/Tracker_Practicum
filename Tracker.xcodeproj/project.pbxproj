@@ -24,6 +24,7 @@
 		C40C54F92BE14CA600028145 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C54F82BE14CA600028145 /* CategoryCell.swift */; };
 		C40C54FB2BE14CBD00028145 /* TrackersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C54FA2BE14CBD00028145 /* TrackersViewController.swift */; };
 		C40C54FD2BE14F6E00028145 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C54FC2BE14F6E00028145 /* StatisticsViewController.swift */; };
+		C41A40A02BE2915800971953 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41A409F2BE2915800971953 /* String+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		C40C54F82BE14CA600028145 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		C40C54FA2BE14CBD00028145 /* TrackersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersViewController.swift; sourceTree = "<group>"; };
 		C40C54FC2BE14F6E00028145 /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
+		C41A409F2BE2915800971953 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +164,7 @@
 		C40C54E72BE144FD00028145 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C41A409F2BE2915800971953 /* String+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C41A40A02BE2915800971953 /* String+Extension.swift in Sources */,
 				C40C54F92BE14CA600028145 /* CategoryCell.swift in Sources */,
 				C40C54EF2BE14C6100028145 /* HeaderCollectionReusableView.swift in Sources */,
 				C40C54F52BE14C9200028145 /* TrackerViewCell.swift in Sources */,
