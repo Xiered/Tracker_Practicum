@@ -188,6 +188,7 @@ extension IrregularEventViewController: UITableViewDataSource {
 
         if indexPath.row == 0 {
             cell.textLabel?.text = "Категория"
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         }
         return cell
     }

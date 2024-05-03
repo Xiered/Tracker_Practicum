@@ -9,6 +9,8 @@ import UIKit
 
 protocol HabitViewControllerDelegate: AnyObject {
     func addNewHabit(_ trackerCategory: TrackerCategory)
+    func appendTracker(tracker: Tracker)
+    func reload()
 }
 
 // Controller for habit creating
@@ -16,6 +18,7 @@ final class HabitViewController: UIViewController {
     
     // MARK: - Variables
     weak var delegate: HabitViewControllerDelegate?
+    private var trackersVC: HabitViewControllerDelegate?
     
     private let habitTextField: UITextField = {
         let habitTextField = UITextField()
@@ -78,9 +81,13 @@ final class HabitViewController: UIViewController {
     @objc private func createHabitButtonTapped() {
         let text: String = habitTextField.text ?? ""
         let category: String = category ?? ""
-        if let delegate = delegate {
+     /*   if let delegate = delegate {
             delegate.addNewHabit(TrackerCategory(header: category, trackersArray: [Tracker(id: UUID(), name: text, color: UIColor(named: "Color selection 5") ?? .green, emoji: "🩷", schedule: chosenDays)]))
-        }
+        } */
+        let newTracker = Tracker(id: UUID(), name: text, color: UIColor(named: "Color selection 8") ?? .red, emoji: "🩷", schedule: chosenDays)
+        trackersVC?.appendTracker(tracker: newTracker)
+        trackersVC?.reload()
+        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
     
     private func configureHabitLayout() {
@@ -178,8 +185,12 @@ extension HabitViewController: UITableViewDataSource {
         
         if indexPath.row == 0 {
             cell.textLabel?.text = "Категория"
+            cell.textLabel?.textColor = UIColor(named: "YP Black (day)")
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         } else {
             cell.textLabel?.text = "Расписание"
+            cell.textLabel?.textColor = UIColor(named: "YP Black (day)")
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         }
         return cell
     }

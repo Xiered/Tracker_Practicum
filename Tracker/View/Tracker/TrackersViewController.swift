@@ -15,6 +15,7 @@ final class TrackersViewController: UIViewController {
     }
 
     static var selectedDate: Date?
+    private var trackers: [Tracker] = []
     private var categories: [TrackerCategory] = []
     private var completedTrackers: Set<TrackerRecord> = []
     private var newCategories: [TrackerCategory] = []
@@ -52,7 +53,7 @@ final class TrackersViewController: UIViewController {
     private let searchTextField: UISearchTextField = {
         let searchView = UISearchTextField()
         searchView.translatesAutoresizingMaskIntoConstraints = false
-        searchView.backgroundColor = UIColor(named: "YP Gray")
+        searchView.backgroundColor = UIColor(named: "YP Background (day)")
         searchView.placeholder = "Поиск"
         searchView.addTarget(nil, action: #selector(searchTextFieldEditingChanged), for: .editingChanged)
         return searchView
@@ -312,6 +313,21 @@ extension TrackersViewController:TrackerViewDelegate {
 }
 
 extension TrackersViewController: HabitViewControllerDelegate {
+    
+    func appendTracker(tracker: Tracker) {
+        self.trackers.append(tracker)
+        self.categories = self.categories.map { category in
+            var updatedTrackers = category.trackersArray
+            updatedTrackers.append(tracker)
+            return TrackerCategory(header: category.header, trackersArray: updatedTrackers)
+        }
+        reloadVisibleCategories()
+    }
+    
+    func reload() {
+        self.collectionView.reloadData()
+    }
+    
     func addNewHabit(_ trackerCategory: TrackerCategory) {
         var newCategories: [TrackerCategory] = []
         
