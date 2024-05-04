@@ -147,10 +147,11 @@ final class TrackerViewCell: UICollectionViewCell {
         var symbolImage: UIImage?
         guard let viewModel = viewModel else { return }
         if viewModel.buttonIsChecked {
-            symbolImage = UIImage(systemName: "checkmark", withConfiguration: symbolConfig)
+           symbolImage = UIImage(systemName: "checkmark", withConfiguration: symbolConfig)
             dayCheckButton.layer.opacity = 0.3
         } else {
-            symbolImage = UIImage(systemName: "plusButtonImage", withConfiguration: symbolConfig)
+            //symbolImage = UIImage(systemName: "plusButtonImage", withConfiguration: symbolConfig)
+            symbolImage = UIImage(named: "trackerPlus")
             dayCheckButton.layer.opacity = 1.0
         }
         dayCheckButton.setImage(symbolImage, for: .normal)

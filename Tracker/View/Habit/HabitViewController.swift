@@ -85,12 +85,12 @@ final class HabitViewController: UIViewController {
     @objc private func createHabitButtonTapped() {
         let text: String = habitTextField.text ?? ""
         let category: String = category ?? ""
-     /*   if let delegate = delegate {
+        if let delegate = delegate {
             delegate.addNewHabit(TrackerCategory(header: category, trackersArray: [Tracker(id: UUID(), name: text, color: UIColor(named: "Color selection 5") ?? .green, emoji: "🩷", schedule: chosenDays)]))
-        } */
-        let newTracker = Tracker(id: UUID(), name: text, color: UIColor(named: "Color selection 8") ?? .red, emoji: "🩷", schedule: chosenDays)
+        }
+            /* let newTracker = Tracker(id: UUID(), name: text, color: UIColor(named: "Color selection 8") ?? .red, emoji: "🩷", schedule: chosenDays)
         trackersVC?.appendTracker(tracker: newTracker)
-        trackersVC?.reload()
+        trackersVC?.reload() */
      //   self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
      /*   guard
             let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
@@ -147,9 +147,9 @@ final class HabitViewController: UIViewController {
            !text.isEmpty,
            category != nil,
            !chosenDays.isEmpty {
-             //  createHabitButton.isEnabled = true
-             //  createHabitButton.backgroundColor = UIColor(named: "YP Black (day)")
-            createHabitButton.backgroundColor = createHabitButton.isEnabled ? UIColor(named: "YP Black (day)") : UIColor(named: "YP White (day)")
+              createHabitButton.isEnabled = true
+              createHabitButton.backgroundColor = UIColor(named: "YP Black (day)")
+           // createHabitButton.backgroundColor = createHabitButton.isEnabled ? UIColor(named: "YP Black (day)") : UIColor(named: "YP White (day)")
                createHabitButton.setTitleColor(UIColor(named: "YP White (day)"), for: .normal)
            } else {
                createHabitButton.isEnabled = false
