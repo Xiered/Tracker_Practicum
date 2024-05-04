@@ -87,7 +87,14 @@ final class HabitViewController: UIViewController {
         let newTracker = Tracker(id: UUID(), name: text, color: UIColor(named: "Color selection 8") ?? .red, emoji: "🩷", schedule: chosenDays)
         trackersVC?.appendTracker(tracker: newTracker)
         trackersVC?.reload()
-        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+     //   self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+     /*   guard
+            let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+            let window = windowScene.windows.first else {
+            fatalError("Invalid Configuration")
+        }
+        let tabBarController = TabBarViewController()
+        window.rootViewController = tabBarController */
     }
     
     private func configureHabitLayout() {
@@ -98,7 +105,7 @@ final class HabitViewController: UIViewController {
         view.addSubview(createHabitButton)
         
         navigationItem.title = "Новая привычка"
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "YP Black (day)")]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "YP Black (day)") ?? .green]
         navigationItem.hidesBackButton = true
         
         habitTableView.delegate = self
