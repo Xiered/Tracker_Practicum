@@ -27,6 +27,10 @@ final class HabitViewController: UIViewController {
         habitTextField.layer.cornerRadius = 16
         habitTextField.backgroundColor = UIColor(named: "YP Background (day)")
         habitTextField.textColor = UIColor(named: "YP Black (day)")
+        habitTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: habitTextField.frame.height))
+        habitTextField.leftViewMode = .always
+        let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor(named: "YP Gray") as Any]
+        habitTextField.attributedPlaceholder = NSAttributedString(string: "Введите название трекера", attributes: attributes)
         
         return habitTextField
     }()
@@ -143,8 +147,9 @@ final class HabitViewController: UIViewController {
            !text.isEmpty,
            category != nil,
            !chosenDays.isEmpty {
-               createHabitButton.isEnabled = true
-               createHabitButton.backgroundColor = UIColor(named: "YP Black (day)")
+             //  createHabitButton.isEnabled = true
+             //  createHabitButton.backgroundColor = UIColor(named: "YP Black (day)")
+            createHabitButton.backgroundColor = createHabitButton.isEnabled ? UIColor(named: "YP Black (day)") : UIColor(named: "YP White (day)")
                createHabitButton.setTitleColor(UIColor(named: "YP White (day)"), for: .normal)
            } else {
                createHabitButton.isEnabled = false
