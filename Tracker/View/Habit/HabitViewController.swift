@@ -87,7 +87,8 @@ final class HabitViewController: UIViewController {
         let category: String = category ?? ""
         if let delegate = delegate {
             delegate.addNewHabit(TrackerCategory(header: category, trackersArray: [Tracker(id: UUID(), name: text, color: UIColor(named: "Color selection 5") ?? .green, emoji: "🩷", schedule: chosenDays)]))
-        }
+        } else { "Creating failed" }
+        dismiss(animated: true)
             /* let newTracker = Tracker(id: UUID(), name: text, color: UIColor(named: "Color selection 8") ?? .red, emoji: "🩷", schedule: chosenDays)
         trackersVC?.appendTracker(tracker: newTracker)
         trackersVC?.reload() */
