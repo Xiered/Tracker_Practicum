@@ -33,6 +33,7 @@ final class TrackerViewCell: UICollectionViewCell {
         emojiLabel.layer.cornerRadius = 12
         emojiLabel.textAlignment = .center
         emojiLabel.font = UIFont.systemFont(ofSize: 16)
+        emojiLabel.backgroundColor = UIColor(named: "YP White (day)")
         return emojiLabel
     }()
     // Task label
