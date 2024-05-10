@@ -194,8 +194,8 @@ final class TrackersViewController: UIViewController {
             let trackers = category.trackersArray.filter { tracker in
                 let textCondition = filterText.isEmpty ||
                 tracker.name.lowercased().contains(filterText)
-                let dateCondition = tracker.schedule.contains(where: {$0 == filterDayOfWeek})
-                return textCondition && dateCondition
+                let dateCondition = tracker.schedule?.contains(where: {$0 == filterDayOfWeek})
+                return textCondition && (dateCondition != nil)
             }
             if trackers.isEmpty {
                 return nil
@@ -399,8 +399,8 @@ extension TrackersViewController: UITextFieldDelegate {
             var trackers: [Tracker] = []
             for tracker in category.trackersArray {
                 let containsName = tracker.name.contains(textForSearching)
-                let containsSchedule = tracker.schedule.contains(weekDay)
-                if containsName && containsSchedule {
+                let containsSchedule = tracker.schedule?.contains(weekDay)
+                if containsName && (containsSchedule != nil) {
                     trackers.append(tracker)
                 }
             }

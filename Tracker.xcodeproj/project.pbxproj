@@ -44,6 +44,7 @@
 		C4DBDDE62BEE90BF00714BF7 /* HabitColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DBDDE52BEE90BF00714BF7 /* HabitColorCell.swift */; };
 		C4DBDDE82BEE90D000714BF7 /* HabitEmojiHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DBDDE72BEE90D000714BF7 /* HabitEmojiHeader.swift */; };
 		C4DBDDEA2BEE90DD00714BF7 /* HabitColorHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DBDDE92BEE90DD00714BF7 /* HabitColorHeader.swift */; };
+		C4DBDDEC2BEEB1EB00714BF7 /* UIColorMarshalling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DBDDEB2BEEB1EB00714BF7 /* UIColorMarshalling.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +87,7 @@
 		C4DBDDE52BEE90BF00714BF7 /* HabitColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitColorCell.swift; sourceTree = "<group>"; };
 		C4DBDDE72BEE90D000714BF7 /* HabitEmojiHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitEmojiHeader.swift; sourceTree = "<group>"; };
 		C4DBDDE92BEE90DD00714BF7 /* HabitColorHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitColorHeader.swift; sourceTree = "<group>"; };
+		C4DBDDEB2BEEB1EB00714BF7 /* UIColorMarshalling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorMarshalling.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -264,6 +266,7 @@
 				C4DBDDD32BEE502100714BF7 /* TrackerStore.swift */,
 				C4DBDDD52BEE502D00714BF7 /* TrackerCategoryStore.swift */,
 				C4DBDDD72BEE503800714BF7 /* TrackerRecordStore.swift */,
+				C4DBDDEB2BEEB1EB00714BF7 /* UIColorMarshalling.swift */,
 			);
 			path = DataStore;
 			sourceTree = "<group>";
@@ -400,6 +403,7 @@
 				C40C54F32BE14C8500028145 /* IrregularEventCell.swift in Sources */,
 				C4DBDDEA2BEE90DD00714BF7 /* HabitColorHeader.swift in Sources */,
 				C4DBDDD42BEE502100714BF7 /* TrackerStore.swift in Sources */,
+				C4DBDDEC2BEEB1EB00714BF7 /* UIColorMarshalling.swift in Sources */,
 				C40C54F12BE14C7B00028145 /* HabitCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
