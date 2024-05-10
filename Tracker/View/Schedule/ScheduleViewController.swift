@@ -20,7 +20,7 @@ final class ScheduleViewController: UIViewController {
     private let weekdayTable: UITableView = {
         let weekdayTable = UITableView()
         weekdayTable.translatesAutoresizingMaskIntoConstraints = false
-        weekdayTable.backgroundColor = UIColor(named: "YP White (day)")
+        weekdayTable.backgroundColor = UIColor(named: "YP Light Gray")
         weekdayTable.isScrollEnabled = false
         
         return weekdayTable
@@ -118,8 +118,6 @@ final class ScheduleViewController: UIViewController {
             okayButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             okayButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
             okayButton.heightAnchor.constraint(equalToConstant: 60)
-
-
         ])
     }
     
@@ -137,7 +135,6 @@ final class ScheduleViewController: UIViewController {
         configDaysArray()
         weekdayTable.reloadData()
     }
-    
 }
 
 // MARK: - Extensions
@@ -168,7 +165,7 @@ extension ScheduleViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SwitchCell.reuseIdentifier, for: indexPath) as! SwitchCell
-        cell.backgroundColor = UIColor(named: "YP Background")
+        cell.backgroundColor = UIColor(named: "YP Background (day)")
         cell.textLabel?.text = days[indexPath.row]
         
         // Get the switch state value from the dictionary
