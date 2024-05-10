@@ -32,6 +32,7 @@
 		C4391FBE2BE4E724001B5685 /* HabitOrIrregularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4391FBD2BE4E724001B5685 /* HabitOrIrregularViewController.swift */; };
 		C4391FC02BE4E771001B5685 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4391FBF2BE4E771001B5685 /* ScheduleViewController.swift */; };
 		C4391FC22BE4EA89001B5685 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4391FC12BE4EA89001B5685 /* UIColor+Extension.swift */; };
+		C4DBDDCB2BEE47E700714BF7 /* EmojiAndColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DBDDCA2BEE47E700714BF7 /* EmojiAndColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		C4391FBD2BE4E724001B5685 /* HabitOrIrregularViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitOrIrregularViewController.swift; sourceTree = "<group>"; };
 		C4391FBF2BE4E771001B5685 /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		C4391FC12BE4EA89001B5685 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		C4DBDDCA2BEE47E700714BF7 /* EmojiAndColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiAndColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 				C40C54E52BE144D200028145 /* TabBar */,
 				C40C54E42BE144C900028145 /* Habit */,
 				C40C54EE2BE14C6100028145 /* HeaderCollectionReusableView.swift */,
+				C4DBDDCA2BEE47E700714BF7 /* EmojiAndColor.swift */,
 				C4391FBD2BE4E724001B5685 /* HabitOrIrregularViewController.swift */,
 			);
 			path = View;
@@ -302,6 +305,7 @@
 				C4391FC02BE4E771001B5685 /* ScheduleViewController.swift in Sources */,
 				C40C54C52BE1426B00028145 /* AppDelegate.swift in Sources */,
 				C40C54FD2BE14F6E00028145 /* StatisticsViewController.swift in Sources */,
+				C4DBDDCB2BEE47E700714BF7 /* EmojiAndColor.swift in Sources */,
 				C40C54F72BE14C9B00028145 /* SwitchCell.swift in Sources */,
 				C40C54C72BE1426B00028145 /* SceneDelegate.swift in Sources */,
 				C40C54E32BE144BF00028145 /* CellModel.swift in Sources */,
