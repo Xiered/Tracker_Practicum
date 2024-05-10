@@ -179,12 +179,6 @@ final class IrregularEventViewController: UIViewController {
         irregularTableView.separatorColor = UIColor(named: "YP Gray")
         irregularTableView.separatorStyle = .singleLine
         
-      /*  view.addSubview(scrollView)
-        
-        [irregularTableView, irregularTextField, cancelButton, createIrregular, emojiCollectionView, colorCollectionView].forEach {
-            scrollView.addSubview($0)
-        } */
-        
         view.addSubview(scrollView)
         scrollView.addSubview(header)
         scrollView.addSubview(irregularTextField)
@@ -195,63 +189,6 @@ final class IrregularEventViewController: UIViewController {
         scrollView.addSubview(createIrregular)
         
         NSLayoutConstraint.activate([
-           /* scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            irregularTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
-            irregularTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            irregularTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            irregularTextField.heightAnchor.constraint(equalToConstant: 75),
-            
-            irregularTableView.topAnchor.constraint(equalTo: irregularTextField.bottomAnchor, constant: 24),
-            irregularTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            irregularTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            irregularTableView.heightAnchor.constraint(equalToConstant: 2 * 75),
-            
-            irregularTextField.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 38),
-            irregularTextField.centerXAnchor.constraint(equalTo: header.centerXAnchor),
-            irregularTextField.heightAnchor.constraint(equalToConstant: 75),
-            irregularTextField.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
-            irregularTextField.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
-            
-            cancelButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            cancelButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            cancelButton.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -4),
-            cancelButton.heightAnchor.constraint(equalToConstant: 60),
-             
-            createIrregular.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            createIrregular.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            createIrregular.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 4),
-            createIrregular.heightAnchor.constraint(equalToConstant: 60),
-            
-            emojiCollectionView.topAnchor.constraint(equalTo: irregularTableView.bottomAnchor, constant: 32),
-            emojiCollectionView.heightAnchor.constraint(equalToConstant: 222),
-            emojiCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 18),
-            emojiCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18),
-            colorCollectionView.topAnchor.constraint(equalTo: emojiCollectionView.bottomAnchor, constant: 16),
-            colorCollectionView.heightAnchor.constraint(equalToConstant: 222),
-            colorCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 18),
-            colorCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18),
-            emojiCollectionView.topAnchor.constraint(equalTo: irregularTableView.bottomAnchor, constant: 32),
-            emojiCollectionView.heightAnchor.constraint(equalToConstant: 222),
-            emojiCollectionView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 18),
-            emojiCollectionView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -18),
-            colorCollectionView.topAnchor.constraint(equalTo: emojiCollectionView.bottomAnchor, constant: 16),
-            colorCollectionView.heightAnchor.constraint(equalToConstant: 222),
-            colorCollectionView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 18),
-            colorCollectionView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -18),
-            
-            cancelButton.topAnchor.constraint(equalTo: colorCollectionView.bottomAnchor, constant: 16),
-            cancelButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 0),
-            cancelButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
-            cancelButton.trailingAnchor.constraint(equalTo: colorCollectionView.centerXAnchor, constant: -4),
-            cancelButton.heightAnchor.constraint(equalToConstant: 60),
-            createIrregular.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 0),
-            createIrregular.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
-            createIrregular.heightAnchor.constraint(equalToConstant: 60),
-            createIrregular.leadingAnchor.constraint(equalTo: colorCollectionView.centerXAnchor, constant: 4) */
             
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -260,7 +197,7 @@ final class IrregularEventViewController: UIViewController {
             header.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 26),
             header.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             header.heightAnchor.constraint(equalToConstant: 22),
-            irregularTextField.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 38),
+            irregularTextField.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 10),
             irregularTextField.centerXAnchor.constraint(equalTo: header.centerXAnchor),
             irregularTextField.heightAnchor.constraint(equalToConstant: 75),
             irregularTextField.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
