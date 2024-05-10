@@ -26,6 +26,17 @@ final class IrregularEventViewController: UIViewController {
         .ypColorSelection13, .ypColorSelection14, .ypColorSelection15,
         .ypColorSelection16, .ypColorSelection17, .ypColorSelection18
     ]
+    private let emoji = ["🙂", "😻", "🌺", "🐶", "❤️", "😱", "😇", "😡", "🥶",
+                         "🤔", "🙌", "🍔", "🥦", "🏓", "🥇", "🎸", "🏝", "😪"]
+    private var selectedColor: UIColor?
+    private var selectedEmoji: String?
+    
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.isScrollEnabled = true
+        return scrollView
+    }()
     
     private let irregularTextField: UITextField = {
         let irregularTextField = UITextField()
@@ -80,6 +91,33 @@ final class IrregularEventViewController: UIViewController {
         return createIrregularButton
     }()
     
+    private let emojiCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(IrregularEmojiCell.self, forCellWithReuseIdentifier: "Irregular emoji cell")
+        collectionView.register(IrregularEmojiHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: IrregularEmojiHeader.id)
+        collectionView.allowsMultipleSelection = false
+        return collectionView
+    }()
+    
+    private let colorCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(IrregularColorCell.self, forCellWithReuseIdentifier: "Irregular color cell")
+        collectionView.register(IrregularColorHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: IrregularColorHeader.id)
+        collectionView.allowsMultipleSelection = false
+        return collectionView
+    }()
+    
+    private let header: UILabel = {
+        let header = UILabel()
+        header.translatesAutoresizingMaskIntoConstraints = false
+     //   header.text = "Новое нерегулярное событие"
+        header.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        header.textColor = UIColor(named: "YP Black (day)")
+        return header
+    }()
+    
     private var category: String?
     private var chosenCategoryIndex: Int?
     private var chosenDays: [Int] = Array(0...6)
@@ -91,10 +129,13 @@ final class IrregularEventViewController: UIViewController {
     }
     
     @objc private func createIrregularButtonTapped() {
-        let text: String = irregularTextField.text ?? ""
-        let category: String = category ?? ""
+        guard   let text: String = irregularTextField.text,
+                    let category: String = category,
+                    let emoji = selectedEmoji,
+                    let color = selectedColor
+        else { return }
         if let delegate = delegate {
-            delegate.addNewIrregular(TrackerCategory(header: category, trackersArray: [Tracker(id: UUID(), name: text, color: colors[Int.random(in: 0..<self.colors.count)], emoji: "❤️", schedule: chosenDays)]))
+            delegate.addNewIrregular(TrackerCategory(header: category, trackersArray: [Tracker(id: UUID(), name: text, color: color, emoji: emoji, schedule: chosenDays)]))
         } else {
             print("Delegate error")
         }
@@ -115,6 +156,18 @@ final class IrregularEventViewController: UIViewController {
            
     }
     
+    private func setupEmojiCollectionView() {
+        emojiCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        emojiCollectionView.delegate = self
+        emojiCollectionView.dataSource = self
+    }
+    
+    private func setupColorCollectionView() {
+        colorCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        colorCollectionView.delegate = self
+        colorCollectionView.dataSource = self
+    }
+    
     private func setupIrregularLayout() {
         navigationItem.title = "Новое нерегулярное событие"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "YP Black (day)")]
@@ -126,11 +179,27 @@ final class IrregularEventViewController: UIViewController {
         irregularTableView.separatorColor = UIColor(named: "YP Gray")
         irregularTableView.separatorStyle = .singleLine
         
-        [irregularTableView, irregularTextField, cancelButton, createIrregular].forEach {
-            view.addSubview($0)
-        }
+      /*  view.addSubview(scrollView)
+        
+        [irregularTableView, irregularTextField, cancelButton, createIrregular, emojiCollectionView, colorCollectionView].forEach {
+            scrollView.addSubview($0)
+        } */
+        
+        view.addSubview(scrollView)
+        scrollView.addSubview(header)
+        scrollView.addSubview(irregularTextField)
+        scrollView.addSubview(irregularTableView)
+        scrollView.addSubview(emojiCollectionView)
+        scrollView.addSubview(colorCollectionView)
+        scrollView.addSubview(cancelButton)
+        scrollView.addSubview(createIrregular)
         
         NSLayoutConstraint.activate([
+           /* scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
             irregularTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
             irregularTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             irregularTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
@@ -141,6 +210,12 @@ final class IrregularEventViewController: UIViewController {
             irregularTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             irregularTableView.heightAnchor.constraint(equalToConstant: 2 * 75),
             
+            irregularTextField.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 38),
+            irregularTextField.centerXAnchor.constraint(equalTo: header.centerXAnchor),
+            irregularTextField.heightAnchor.constraint(equalToConstant: 75),
+            irregularTextField.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
+            irregularTextField.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
+            
             cancelButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             cancelButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             cancelButton.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -4),
@@ -149,7 +224,68 @@ final class IrregularEventViewController: UIViewController {
             createIrregular.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             createIrregular.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             createIrregular.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 4),
-            createIrregular.heightAnchor.constraint(equalToConstant: 60)
+            createIrregular.heightAnchor.constraint(equalToConstant: 60),
+            
+            emojiCollectionView.topAnchor.constraint(equalTo: irregularTableView.bottomAnchor, constant: 32),
+            emojiCollectionView.heightAnchor.constraint(equalToConstant: 222),
+            emojiCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 18),
+            emojiCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18),
+            colorCollectionView.topAnchor.constraint(equalTo: emojiCollectionView.bottomAnchor, constant: 16),
+            colorCollectionView.heightAnchor.constraint(equalToConstant: 222),
+            colorCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 18),
+            colorCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18),
+            emojiCollectionView.topAnchor.constraint(equalTo: irregularTableView.bottomAnchor, constant: 32),
+            emojiCollectionView.heightAnchor.constraint(equalToConstant: 222),
+            emojiCollectionView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 18),
+            emojiCollectionView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -18),
+            colorCollectionView.topAnchor.constraint(equalTo: emojiCollectionView.bottomAnchor, constant: 16),
+            colorCollectionView.heightAnchor.constraint(equalToConstant: 222),
+            colorCollectionView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 18),
+            colorCollectionView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -18),
+            
+            cancelButton.topAnchor.constraint(equalTo: colorCollectionView.bottomAnchor, constant: 16),
+            cancelButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 0),
+            cancelButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
+            cancelButton.trailingAnchor.constraint(equalTo: colorCollectionView.centerXAnchor, constant: -4),
+            cancelButton.heightAnchor.constraint(equalToConstant: 60),
+            createIrregular.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 0),
+            createIrregular.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
+            createIrregular.heightAnchor.constraint(equalToConstant: 60),
+            createIrregular.leadingAnchor.constraint(equalTo: colorCollectionView.centerXAnchor, constant: 4) */
+            
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            header.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 26),
+            header.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            header.heightAnchor.constraint(equalToConstant: 22),
+            irregularTextField.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 38),
+            irregularTextField.centerXAnchor.constraint(equalTo: header.centerXAnchor),
+            irregularTextField.heightAnchor.constraint(equalToConstant: 75),
+            irregularTextField.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
+            irregularTextField.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
+            irregularTableView.topAnchor.constraint(equalTo: irregularTextField.bottomAnchor, constant: 24),
+            irregularTableView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
+            irregularTableView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
+            irregularTableView.heightAnchor.constraint(equalToConstant: 75),
+            emojiCollectionView.topAnchor.constraint(equalTo: irregularTableView.bottomAnchor, constant: 32),
+            emojiCollectionView.heightAnchor.constraint(equalToConstant: 222),
+            emojiCollectionView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 18),
+            emojiCollectionView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -18),
+            colorCollectionView.topAnchor.constraint(equalTo: emojiCollectionView.bottomAnchor, constant: 16),
+            colorCollectionView.heightAnchor.constraint(equalToConstant: 222),
+            colorCollectionView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 18),
+            colorCollectionView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -18),
+            cancelButton.topAnchor.constraint(equalTo: colorCollectionView.bottomAnchor, constant: 16),
+            cancelButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 0),
+            cancelButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
+            cancelButton.trailingAnchor.constraint(equalTo: colorCollectionView.centerXAnchor, constant: -4),
+            cancelButton.heightAnchor.constraint(equalToConstant: 60),
+            createIrregular.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 0),
+            createIrregular.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
+            createIrregular.heightAnchor.constraint(equalToConstant: 60),
+            createIrregular.leadingAnchor.constraint(equalTo: colorCollectionView.centerXAnchor, constant: 4)
         ])
     }
     
@@ -159,6 +295,8 @@ final class IrregularEventViewController: UIViewController {
     //  irregularTextField.delegate = self
         view.backgroundColor = UIColor(named: "YP White (day)")
         setupIrregularLayout()
+        setupEmojiCollectionView()
+        setupColorCollectionView()
     }
 }
 
@@ -255,3 +393,85 @@ extension IrregularEventViewController: CategoryViewControllerDelegate {
     }
 }
 
+extension IrregularEventViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 18
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if collectionView == emojiCollectionView {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Irregular emoji cell", for: indexPath) as? IrregularEmojiCell else {
+                return UICollectionViewCell()
+            }
+            let emojiIndex = indexPath.item % emoji.count
+            let selectedEmoji = emoji[emojiIndex]
+            
+            cell.emojiLabel.text = selectedEmoji
+            cell.layer.cornerRadius = 16
+            
+            return cell
+        } else if collectionView == colorCollectionView {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Irregular color cell", for: indexPath) as? IrregularColorCell else {
+                return UICollectionViewCell()
+            }
+            
+            let colorIndex = indexPath.item % colors.count
+            let selectedColor = colors[colorIndex]
+            
+            cell.colorView.backgroundColor = selectedColor
+            cell.layer.cornerRadius = 8
+            
+            return cell
+        }
+        return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView:UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        if collectionView == emojiCollectionView {
+            guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: IrregularEmojiHeader.id, for: indexPath) as? IrregularEmojiHeader else {
+                return UICollectionReusableView()
+            }
+            header.headerText = "Emoji"
+            return header
+        } else if collectionView == colorCollectionView {
+            guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: IrregularColorHeader.id, for: indexPath) as? IrregularColorHeader else {
+                return UICollectionReusableView()
+            }
+            header.headerText = "Цвет"
+            return header
+        }
+        
+        return UICollectionReusableView()
+    }
+    
+}
+
+extension IrregularEventViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == emojiCollectionView {
+            let cell = collectionView.cellForItem(at: indexPath) as? IrregularEmojiCell
+            cell?.backgroundColor = UIColor(named: "YP Light Gray")
+            
+            selectedEmoji = cell?.emojiLabel.text
+        } else if collectionView == colorCollectionView {
+            let cell = collectionView.cellForItem(at: indexPath) as? IrregularColorCell
+            cell?.layer.borderWidth = 3
+            cell?.layer.borderColor = cell?.colorView.backgroundColor?.withAlphaComponent(0.3).cgColor
+            
+            selectedColor = cell?.colorView.backgroundColor
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if collectionView == emojiCollectionView {
+            let cell = collectionView.cellForItem(at: indexPath) as? IrregularEmojiCell
+            cell?.backgroundColor = UIColor(named: "YP White (day)")
+        } else if collectionView == colorCollectionView {
+            let cell = collectionView.cellForItem(at: indexPath) as? IrregularColorCell
+            cell?.layer.borderWidth = 0
+        }
+    }
+}
