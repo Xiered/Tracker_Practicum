@@ -174,7 +174,7 @@ final class TrackersViewController: UIViewController {
                 textPlaceholder.text = "Что будем отслеживать"
                 
             case .notFoundTrackers:
-                imagePlaceholder.image = UIImage(named: "notFountPlaceholder")
+                imagePlaceholder.image = UIImage(named: "notFoundPlaceholder")
                 textPlaceholder.text = "Ничего не найдено"
             }
         } else {
