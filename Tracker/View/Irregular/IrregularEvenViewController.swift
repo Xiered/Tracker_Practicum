@@ -323,6 +323,8 @@ extension IrregularEventViewController: CategoryViewControllerDelegate {
         let indexPath = IndexPath(row: 0, section: 0)
         if let cell = irregularTableView.cellForRow(at: indexPath) as? IrregularEventCell {
             cell.detailTextLabel?.text = category
+            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+            cell.detailTextLabel?.textColor = UIColor(named: "YP Gray")
         }
         self.category = category
         chosenCategoryIndex = index

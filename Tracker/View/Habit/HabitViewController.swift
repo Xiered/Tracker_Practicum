@@ -217,8 +217,6 @@ final class HabitViewController: UIViewController {
         if let text = habitTextField.text,
            !text.isEmpty,
            category != nil,
-//           selectedColor == nil,
-//           selectedEmoji == nil,
            !chosenDays.isEmpty {
               createHabitButton.isEnabled = true
               createHabitButton.backgroundColor = UIColor(named: "YP Black (day)")
@@ -311,6 +309,8 @@ extension HabitViewController: CategoryViewControllerDelegate {
         let indexPath = IndexPath(row: 0, section: 0)
         if let cell = habitTableView.cellForRow(at: indexPath) as? HabitCell {
             cell.detailTextLabel?.text = category
+            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+            cell.detailTextLabel?.textColor = UIColor(named: "YP Gray")
         }
         self.category = category
         categoryIndex = index
@@ -337,6 +337,8 @@ extension HabitViewController: ScheduleViewControllerDelegate {
         let indexPath = IndexPath(row: 1, section: 0)
         if let cell = habitTableView.cellForRow(at: indexPath) as? HabitCell {
             cell.detailTextLabel?.text = daysView
+            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+            cell.detailTextLabel?.textColor = UIColor(named: "YP Gray")
         }
         checkButtonAccessibility()
     }
