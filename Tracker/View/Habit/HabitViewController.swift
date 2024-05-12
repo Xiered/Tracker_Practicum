@@ -45,6 +45,7 @@ final class HabitViewController: UIViewController {
     private let header: UILabel = {
         let header = UILabel()
         header.translatesAutoresizingMaskIntoConstraints = false
+       // header.text = "Новая привычка"
         header.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         header.textColor = UIColor(named: "YP Black (day)")
         return header
@@ -166,7 +167,7 @@ final class HabitViewController: UIViewController {
         scrollView.addSubview(cancelButton)
         
         navigationItem.title = "Новая привычка"
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "YP Black (day)") ?? .green]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "YP Black (day)")]
         navigationItem.hidesBackButton = true
         
         habitTableView.delegate = self
@@ -216,6 +217,8 @@ final class HabitViewController: UIViewController {
         if let text = habitTextField.text,
            !text.isEmpty,
            category != nil,
+//           selectedColor == nil,
+//           selectedEmoji == nil,
            !chosenDays.isEmpty {
               createHabitButton.isEnabled = true
               createHabitButton.backgroundColor = UIColor(named: "YP Black (day)")
