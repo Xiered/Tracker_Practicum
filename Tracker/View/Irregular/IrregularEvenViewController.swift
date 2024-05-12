@@ -112,7 +112,6 @@ final class IrregularEventViewController: UIViewController {
     private let header: UILabel = {
         let header = UILabel()
         header.translatesAutoresizingMaskIntoConstraints = false
-     //   header.text = "Новое нерегулярное событие"
         header.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         header.textColor = UIColor(named: "YP Black (day)")
         return header
@@ -228,8 +227,6 @@ final class IrregularEventViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-    //  irregularTextField.delegate = self
         view.backgroundColor = UIColor(named: "YP White (day)")
         setupIrregularLayout()
         setupEmojiCollectionView()

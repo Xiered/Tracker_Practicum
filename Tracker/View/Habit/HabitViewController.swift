@@ -45,7 +45,6 @@ final class HabitViewController: UIViewController {
     private let header: UILabel = {
         let header = UILabel()
         header.translatesAutoresizingMaskIntoConstraints = false
-       // header.text = "Новая привычка"
         header.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         header.textColor = UIColor(named: "YP Black (day)")
         return header
@@ -214,7 +213,7 @@ final class HabitViewController: UIViewController {
     }
     
     private func checkButtonAccessibility() {
-        if let text = habitTextField.text,
+        if let text = habitTextField.text, 
            !text.isEmpty,
            category != nil,
            !chosenDays.isEmpty {
