@@ -216,6 +216,8 @@ final class HabitViewController: UIViewController {
         if let text = habitTextField.text,
            !text.isEmpty,
            category != nil,
+           selectedColor != nil,
+           selectedEmoji != nil,
            !chosenDays.isEmpty {
               createHabitButton.isEnabled = true
               createHabitButton.backgroundColor = UIColor(named: "YP Black (day)")
@@ -399,18 +401,34 @@ extension HabitViewController: UICollectionViewDataSource {
 
 extension HabitViewController: UICollectionViewDelegate {
     
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        if collectionView == emojiCollectionView {
+//            let cell = collectionView.cellForItem(at: indexPath) as? HabitEmojiCell
+//            cell?.backgroundColor = UIColor(named: "YP Light Gray")
+//            
+//            selectedEmoji = cell?.emojiLabel.text
+//        } else if collectionView == colorCollectionView {
+//            let cell = collectionView.cellForItem(at: indexPath) as? HabitColorCell
+//            cell?.layer.borderWidth = 3
+//            cell?.layer.borderColor = cell?.colorView.backgroundColor?.withAlphaComponent(0.3).cgColor
+//            
+//            selectedColor = cell?.colorView.backgroundColor
+//        }
+//    }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == emojiCollectionView {
             let cell = collectionView.cellForItem(at: indexPath) as? HabitEmojiCell
             cell?.backgroundColor = UIColor(named: "YP Light Gray")
             
             selectedEmoji = cell?.emojiLabel.text
-        } else if collectionView == colorCollectionView {
-            let cell = collectionView.cellForItem(at: indexPath) as? HabitColorCell
-            cell?.layer.borderWidth = 3
-            cell?.layer.borderColor = cell?.colorView.backgroundColor?.withAlphaComponent(0.3).cgColor
-            
-            selectedColor = cell?.colorView.backgroundColor
+        } else { }
+           if collectionView == colorCollectionView {
+                let cell = collectionView.cellForItem(at: indexPath) as? HabitColorCell
+                cell?.layer.borderWidth = 3
+                cell?.layer.borderColor = cell?.colorView.backgroundColor?.withAlphaComponent(0.3).cgColor
+                
+                selectedColor = cell?.colorView.backgroundColor
+           } else { 
         }
     }
     
