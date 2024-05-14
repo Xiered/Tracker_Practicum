@@ -213,13 +213,12 @@ final class HabitViewController: UIViewController {
     }
     
     private func checkButtonAccessibility() {
-        if let text = habitTextField.text, 
+        if let text = habitTextField.text,
            !text.isEmpty,
            category != nil,
            !chosenDays.isEmpty {
               createHabitButton.isEnabled = true
               createHabitButton.backgroundColor = UIColor(named: "YP Black (day)")
-           // createHabitButton.backgroundColor = createHabitButton.isEnabled ? UIColor(named: "YP Black (day)") : UIColor(named: "YP White (day)")
                createHabitButton.setTitleColor(UIColor(named: "YP White (day)"), for: .normal)
            } else {
                createHabitButton.isEnabled = false
