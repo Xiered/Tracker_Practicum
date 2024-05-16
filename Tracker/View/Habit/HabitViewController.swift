@@ -216,7 +216,7 @@ final class HabitViewController: UIViewController {
         if let text = habitTextField.text,
            !text.isEmpty,
            category != nil,
-           selectedColor != nil,
+//           selectedColor != nil,
            selectedEmoji != nil,
            !chosenDays.isEmpty {
               createHabitButton.isEnabled = true
@@ -416,6 +416,7 @@ extension HabitViewController: UICollectionViewDelegate {
 //        }
 //    }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        checkButtonAccessibility()
         if collectionView == emojiCollectionView {
             let cell = collectionView.cellForItem(at: indexPath) as? HabitEmojiCell
             cell?.backgroundColor = UIColor(named: "YP Light Gray")
@@ -433,6 +434,7 @@ extension HabitViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        checkButtonAccessibility()
         if collectionView == emojiCollectionView {
             let cell = collectionView.cellForItem(at: indexPath) as? HabitEmojiCell
             cell?.backgroundColor = UIColor(named: "YP White (day)")

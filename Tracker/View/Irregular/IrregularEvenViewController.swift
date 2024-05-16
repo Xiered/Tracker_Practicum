@@ -144,15 +144,24 @@ final class IrregularEventViewController: UIViewController {
     private func checkButtonAccessibility() {
         if let text = irregularTextField.text,
            !text.isEmpty,
-           category != nil {
+           category != nil,
+           selectedEmoji != nil {
+           //  selectedColor != nil {
+            print("Text: \(text)")
+            print("Category: \(category)")
+            print("Selected Emoji: \(selectedEmoji)")
+            print("Selected Color: \(selectedColor)")
             createIrregular.isEnabled = true
             createIrregular.backgroundColor = UIColor(named: "YP Black (day)")
             createIrregular.setTitleColor(UIColor(named: "YP White (day)"), for: .normal)
         } else {
-            createIrregular.isEnabled = true
+            
+//            print("Category: \(category)")
+//            print("Selected Emoji: \(selectedEmoji)")
+//            print("Selected Color: \(selectedColor)")
+            createIrregular.isEnabled = false
             createIrregular.backgroundColor = UIColor(named: "YP Gray")
         }
-           
     }
     
     private func setupEmojiCollectionView() {
@@ -290,6 +299,11 @@ extension IrregularEventViewController: UITableViewDataSource {
 }
 
 extension IrregularEventViewController: UITextFieldDelegate {
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+            checkButtonAccessibility()
+        }
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if category == nil {
             showReminderAlert()
@@ -386,22 +400,27 @@ extension IrregularEventViewController: UICollectionViewDataSource {
 }
 
 extension IrregularEventViewController: UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        checkButtonAccessibility()
         if collectionView == emojiCollectionView {
             let cell = collectionView.cellForItem(at: indexPath) as? IrregularEmojiCell
             cell?.backgroundColor = UIColor(named: "YP Light Gray")
             
             selectedEmoji = cell?.emojiLabel.text
-        } else if collectionView == colorCollectionView {
-            let cell = collectionView.cellForItem(at: indexPath) as? IrregularColorCell
-            cell?.layer.borderWidth = 3
-            cell?.layer.borderColor = cell?.colorView.backgroundColor?.withAlphaComponent(0.3).cgColor
-            
-            selectedColor = cell?.colorView.backgroundColor
+        } else { }
+           if collectionView == colorCollectionView {
+                let cell = collectionView.cellForItem(at: indexPath) as? IrregularColorCell
+                cell?.layer.borderWidth = 3
+                cell?.layer.borderColor = cell?.colorView.backgroundColor?.withAlphaComponent(0.3).cgColor
+                
+                selectedColor = cell?.colorView.backgroundColor
+           } else {
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        checkButtonAccessibility()
         if collectionView == emojiCollectionView {
             let cell = collectionView.cellForItem(at: indexPath) as? IrregularEmojiCell
             cell?.backgroundColor = UIColor(named: "YP White (day)")
