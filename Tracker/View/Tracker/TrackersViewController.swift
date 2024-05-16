@@ -185,20 +185,19 @@ final class TrackersViewController: UIViewController {
             textPlaceholder.isHidden = true
         }
     }
-        
+
     private func reloadVisibleCategories() {
-        
         currentDate = datePicker.date
         let calendar = Calendar.current
-        let filterDayOfWeek = calendar.component(.weekday, from: currentDate) - 1
+        let selectedDayOfWeek = calendar.component(.weekday, from: currentDate) - 1
         let filterText = (searchTextField.text ?? "").lowercased()
 
         newCategories = categories.compactMap { category in
             let trackers = category.trackersArray.filter { tracker in
-                let textCondition = filterText.isEmpty ||
-                tracker.name.lowercased().contains(filterText)
-                let dateCondition = tracker.schedule?.contains(where: {$0 == filterDayOfWeek})
-                return textCondition && (dateCondition != nil)
+                let textCondition = filterText.isEmpty || tracker.name.lowercased().contains(filterText)
+                let dayOfWeek = tracker.schedule?.first ?? -1
+                let dateCondition = dayOfWeek == selectedDayOfWeek
+                return textCondition && dateCondition
             }
             if trackers.isEmpty {
                 return nil
