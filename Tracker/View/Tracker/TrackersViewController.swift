@@ -20,7 +20,34 @@ final class TrackersViewController: UIViewController {
     private var completedTrackers: Set<TrackerRecord> = []
     private var newCategories: [TrackerCategory] = []
     private var currentDate: Date = Date()
-    private var trackerStore = TrackerStore()
+    private var trackerRecordStore = TrackerRecordStore()
+    
+    private var trackerStore: TrackerStore!
+
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        let context = (UIApplication.shared.delegate as! AppDelegate).context
+        
+        do {
+            trackerStore = try TrackerStore(context: context)
+        } catch {
+            fatalError("Ошибка инициализации TrackerStore: \(error)")
+        }
+        trackerStore.delegate = self
+        trackerStore.loadTrackers()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        let context = (UIApplication.shared.delegate as! AppDelegate).context
+        do {
+            trackerStore = try TrackerStore(context: context)
+        } catch {
+            fatalError("Ошибка инициализации TrackerStore: \(error)")
+        }
+        trackerStore.delegate = self
+        trackerStore.loadTrackers()
+    }
     
     // MARK: - Layout components
     
@@ -174,7 +201,7 @@ final class TrackersViewController: UIViewController {
                 
             case .noTrackers:
                 imagePlaceholder.image = UIImage(named: "trackersPlaceholder")
-                textPlaceholder.text = "Что будем отслеживать"
+                textPlaceholder.text = "Что будем отслеживать?"
                 
             case .notFoundTrackers:
                 imagePlaceholder.image = UIImage(named: "notFoundPlaceholder")
@@ -327,7 +354,6 @@ extension TrackersViewController: HabitViewControllerDelegate {
         } catch {
             print("Ошибка сохранения нового трекера: \(error)")
         }
-
         reloadVisibleCategories()
     }
 

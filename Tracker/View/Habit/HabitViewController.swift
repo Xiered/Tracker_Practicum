@@ -18,7 +18,7 @@ final class HabitViewController: UIViewController {
     
     // MARK: - Variables
     weak var delegate: HabitViewControllerDelegate?
-    private var trackersVC: HabitViewControllerDelegate?
+    private var trackersVC = TrackersViewController()
     
     private var selectedColor: UIColor?
     private var selectedEmoji: String?
@@ -136,9 +136,14 @@ final class HabitViewController: UIViewController {
               let emoji = selectedEmoji,
               let color = selectedColor
         else { return }
-                if let delegate = delegate {
-                    delegate.addNewHabit(TrackerCategory(header: category, trackersArray: [Tracker(id: UUID(), name: text, color: color, emoji: emoji, schedule: chosenDays)]))
+                
+        if let delegate = delegate {
+            let newTracker = Tracker(id: UUID(), name: text, color: color, emoji: emoji, schedule: chosenDays)
+            delegate.addNewHabit(TrackerCategory(header: category, trackersArray: [newTracker]))
+            trackersVC.appendTracker(tracker: newTracker)
+            
         } else { return }
+        
         dismiss(animated: true)
     }
     

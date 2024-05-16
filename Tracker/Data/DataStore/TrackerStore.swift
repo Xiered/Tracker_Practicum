@@ -21,12 +21,16 @@ final class TrackerStore: NSObject {
     weak var delegate: TrackerStoreDelegate?
     
     var trackers: [Tracker] {
-        guard let objects = self.fetchedResultController.fetchedObjects,
-              let trackers = try? objects.map({ try self.tracker(from: $0) })
-        else { return [] }
-        return trackers
+        get {
+            guard let objects = self.fetchedResultController.fetchedObjects,
+                  let trackers = try? objects.map({ try self.tracker(from: $0) })
+            else { return [] }
+            return trackers
+        }
+        set {
+        }
     }
-    
+
     convenience override init() {
         let context = (UIApplication.shared.delegate as! AppDelegate).context
         try! self.init(context: context)
@@ -81,8 +85,36 @@ final class TrackerStore: NSObject {
         }
     }
 
-    
+    func loadTrackers() {
+
+        let fetchRequest: NSFetchRequest<TrackerCoreData> = TrackerCoreData.fetchRequest()
+
+        do {
+            let fetchedTrackers = try context.fetch(fetchRequest)
+            
+            var trackers: [Tracker] = []
+  
+            for trackerCoreData in fetchedTrackers {
+                guard let id = trackerCoreData.id,
+                      let name = trackerCoreData.name,
+                      let emoji = trackerCoreData.emoji,
+                      let color = uiColorMarshalling.color(from: trackerCoreData.color ?? "")
+                else {
+                    continue
+                }
+
+                let tracker = Tracker(id: id, name: name, color: color, emoji: emoji, schedule: trackerCoreData.schedule ?? [])
+                
+                trackers.append(tracker)
+            }
+            self.trackers = trackers
+            delegate?.store()
+        } catch {
+            print("Ошибка при загрузке трекеров из CoreData: \(error)")
+        }
+    }
 }
+
 extension TrackerStore: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         delegate?.store()
