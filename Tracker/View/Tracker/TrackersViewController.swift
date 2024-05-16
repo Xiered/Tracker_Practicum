@@ -20,7 +20,7 @@ final class TrackersViewController: UIViewController {
     private var completedTrackers: Set<TrackerRecord> = []
     private var newCategories: [TrackerCategory] = []
     private var currentDate: Date = Date()
-    //private var trackerStore = TrackerStore()
+    private var trackerStore = TrackerStore()
     
     // MARK: - Layout components
     
@@ -111,8 +111,8 @@ final class TrackersViewController: UIViewController {
         configureCollectionView()
         createLayout()
         searchTextField.delegate = self
-      //trackerStore.delegate = self
-    //  trackers = trackerStore.trackers
+      trackerStore.delegate = self
+      trackers = trackerStore.trackers
         reloadPlaceholder(for: .noTrackers)
         datePickerValueChanged(datePicker)
     }
@@ -318,18 +318,19 @@ extension TrackersViewController:TrackerViewDelegate {
 }
 
 extension TrackersViewController: HabitViewControllerDelegate {
-    
     func appendTracker(tracker: Tracker) {
         self.trackers.append(tracker)
-       // try? self.trackerStore.addNewTracker(tracker)
-        self.categories = self.categories.map { category in
-            var updatedTrackers = category.trackersArray
-            updatedTrackers.append(tracker)
-            return TrackerCategory(header: category.header, trackersArray: updatedTrackers)
+        
+        do {
+            try self.trackerStore.addNewTracker(tracker)
+            try self.trackerStore.context.save()
+        } catch {
+            print("Ошибка сохранения нового трекера: \(error)")
         }
+
         reloadVisibleCategories()
     }
-    
+
     func reload() {
         self.collectionView.reloadData()
     }
@@ -416,11 +417,17 @@ extension TrackersViewController: UITextFieldDelegate {
         return searchedCategories
     }
 }
-/*
+
 extension TrackersViewController: TrackerStoreDelegate {
     func store() {
+        
         trackers = trackerStore.trackers
+        
+        let allTrackersCategory = TrackerCategory(header: "", trackersArray: trackers)
+        
+        categories = [allTrackersCategory]
+
+        reloadVisibleCategories()
         collectionView.reloadData()
     }
 }
-*/

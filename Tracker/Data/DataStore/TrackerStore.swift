@@ -15,7 +15,7 @@ protocol TrackerStoreDelegate: AnyObject {
 final class TrackerStore: NSObject {
     
     private let uiColorMarshalling = UIColorMarshalling()
-    private var context: NSManagedObjectContext
+     var context: NSManagedObjectContext
     private var fetchedResultController: NSFetchedResultsController<TrackerCoreData>!
     
     weak var delegate: TrackerStoreDelegate?
@@ -72,6 +72,15 @@ final class TrackerStore: NSObject {
         }
         return Tracker(id: id, name: name, color: color, emoji: emoji, schedule: schedule.map({ $0 }))
     }
+    
+    func saveContext() {
+        do {
+            try context.save()
+        } catch {
+            print("Ошибка сохранения контекста Core Data: \(error)")
+        }
+    }
+
     
 }
 extension TrackerStore: NSFetchedResultsControllerDelegate {

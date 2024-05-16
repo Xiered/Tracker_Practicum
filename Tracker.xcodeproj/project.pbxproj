@@ -32,7 +32,7 @@
 		C4391FBE2BE4E724001B5685 /* HabitOrIrregularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4391FBD2BE4E724001B5685 /* HabitOrIrregularViewController.swift */; };
 		C4391FC02BE4E771001B5685 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4391FBF2BE4E771001B5685 /* ScheduleViewController.swift */; };
 		C4391FC22BE4EA89001B5685 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4391FC12BE4EA89001B5685 /* UIColor+Extension.swift */; };
-		C4DBDDD22BEE501100714BF7 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C4DBDDD02BEE501100714BF7 /* Model.xcdatamodeld */; };
+		C4DBDDD22BEE501100714BF7 /* TrackersEntity.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C4DBDDD02BEE501100714BF7 /* TrackersEntity.xcdatamodeld */; };
 		C4DBDDD42BEE502100714BF7 /* TrackerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DBDDD32BEE502100714BF7 /* TrackerStore.swift */; };
 		C4DBDDD62BEE502D00714BF7 /* TrackerCategoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DBDDD52BEE502D00714BF7 /* TrackerCategoryStore.swift */; };
 		C4DBDDD82BEE503800714BF7 /* TrackerRecordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DBDDD72BEE503800714BF7 /* TrackerRecordStore.swift */; };
@@ -274,7 +274,7 @@
 		C4DBDDCF2BEE4FF000714BF7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C4DBDDD02BEE501100714BF7 /* Model.xcdatamodeld */,
+				C4DBDDD02BEE501100714BF7 /* TrackersEntity.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -399,7 +399,7 @@
 				C4391FBC2BE4E6F3001B5685 /* NewCategoryViewController.swift in Sources */,
 				C4DBDDDC2BEE638200714BF7 /* IrregularEmojiCell.swift in Sources */,
 				C4DBDDD82BEE503800714BF7 /* TrackerRecordStore.swift in Sources */,
-				C4DBDDD22BEE501100714BF7 /* Model.xcdatamodeld in Sources */,
+				C4DBDDD22BEE501100714BF7 /* TrackersEntity.xcdatamodeld in Sources */,
 				C40C54F32BE14C8500028145 /* IrregularEventCell.swift in Sources */,
 				C4DBDDEA2BEE90DD00714BF7 /* HabitColorHeader.swift in Sources */,
 				C4DBDDD42BEE502100714BF7 /* TrackerStore.swift in Sources */,
@@ -621,13 +621,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		C4DBDDD02BEE501100714BF7 /* Model.xcdatamodeld */ = {
+		C4DBDDD02BEE501100714BF7 /* TrackersEntity.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				C4DBDDD12BEE501100714BF7 /* Model.xcdatamodel */,
 			);
 			currentVersion = C4DBDDD12BEE501100714BF7 /* Model.xcdatamodel */;
-			path = Model.xcdatamodeld;
+			path = TrackersEntity.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
