@@ -20,7 +20,7 @@ final class TrackersViewController: UIViewController {
     private var completedTrackers: Set<TrackerRecord> = []
     private var newCategories: [TrackerCategory] = []
     private var currentDate: Date = Date()
-   // private var trackerStore = TrackerStore()
+    //private var trackerStore = TrackerStore()
     
     // MARK: - Layout components
     
@@ -111,8 +111,8 @@ final class TrackersViewController: UIViewController {
         configureCollectionView()
         createLayout()
         searchTextField.delegate = self
-       // trackerStore.delegate = self
-       // trackers = trackerStore.trackers
+      //trackerStore.delegate = self
+    //  trackers = trackerStore.trackers
         reloadPlaceholder(for: .noTrackers)
         datePickerValueChanged(datePicker)
     }
@@ -196,7 +196,9 @@ final class TrackersViewController: UIViewController {
             let trackers = category.trackersArray.filter { tracker in
                 let textCondition = filterText.isEmpty || tracker.name.lowercased().contains(filterText)
                 let dayOfWeek = tracker.schedule?.first ?? -1
-                let dateCondition = dayOfWeek == selectedDayOfWeek
+//                let dateCondition = dayOfWeek == selectedDayOfWeek
+                let dateCondition = tracker.schedule?.contains(selectedDayOfWeek) ?? false
+
                 return textCondition && dateCondition
             }
             if trackers.isEmpty {
