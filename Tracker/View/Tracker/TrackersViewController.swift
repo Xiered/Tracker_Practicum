@@ -404,6 +404,18 @@ extension TrackersViewController: IrregularEventViewControllerDelegate {
         datePickerValueChanged(datePicker)
         collectionView.reloadData()
     }
+    
+    func appendIrregularTracker(tracker: Tracker) {
+        self.trackers.append(tracker)
+        
+        do {
+            try self.trackerStore.addNewTracker(tracker)
+            try self.trackerStore.context.save()
+        } catch {
+            print("Ошибка сохранения нового трекера: \(error)")
+        }
+        reloadVisibleCategories()
+    }
 }
 
 extension TrackersViewController: UITextFieldDelegate {

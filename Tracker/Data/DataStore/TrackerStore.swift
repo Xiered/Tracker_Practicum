@@ -56,14 +56,25 @@ final class TrackerStore: NSObject {
     }
     
     func addNewTracker(_ tracker: Tracker) throws {
-        let trackerCoreData = TrackerCoreData(context: context)
-        trackerCoreData.id = tracker.id
-        trackerCoreData.name = tracker.name
-        trackerCoreData.color = uiColorMarshalling.hexString(from: tracker.color)
-        trackerCoreData.emoji = tracker.emoji
-        trackerCoreData.schedule = tracker.schedule?.map { $0 }
-        try context.save()
+        if tracker.schedule == nil {
+            // Нерегулярное событие
+                  let trackerCoreData = TrackerCoreData(context: context)
+                  trackerCoreData.id = tracker.id
+                  trackerCoreData.name = tracker.name
+                  trackerCoreData.color = uiColorMarshalling.hexString(from: tracker.color)
+                  trackerCoreData.emoji = tracker.emoji
+                  try context.save()        } else {
+            // Регулярный трекер
+            let trackerCoreData = TrackerCoreData(context: context)
+            trackerCoreData.id = tracker.id
+            trackerCoreData.name = tracker.name
+            trackerCoreData.color = uiColorMarshalling.hexString(from: tracker.color)
+            trackerCoreData.emoji = tracker.emoji
+            trackerCoreData.schedule = tracker.schedule?.map { $0 }
+            try context.save()
+        }
     }
+
     
     func tracker(from trackerCoreData: TrackerCoreData) throws -> Tracker {
         guard let id = trackerCoreData.id,
@@ -86,14 +97,14 @@ final class TrackerStore: NSObject {
     }
 
     func loadTrackers() {
-
+        
         let fetchRequest: NSFetchRequest<TrackerCoreData> = TrackerCoreData.fetchRequest()
-
+        
         do {
             let fetchedTrackers = try context.fetch(fetchRequest)
             
             var trackers: [Tracker] = []
-  
+            
             for trackerCoreData in fetchedTrackers {
                 guard let id = trackerCoreData.id,
                       let name = trackerCoreData.name,
@@ -102,8 +113,8 @@ final class TrackerStore: NSObject {
                 else {
                     continue
                 }
-
-                let tracker = Tracker(id: id, name: name, color: color, emoji: emoji, schedule: trackerCoreData.schedule ?? [])
+                
+                let tracker = Tracker(id: id, name: name, color: color, emoji: emoji, schedule: trackerCoreData.schedule?.map({ $0 }))
                 
                 trackers.append(tracker)
             }
@@ -113,6 +124,7 @@ final class TrackerStore: NSObject {
             print("Ошибка при загрузке трекеров из CoreData: \(error)")
         }
     }
+
 }
 
 extension TrackerStore: NSFetchedResultsControllerDelegate {

@@ -8,6 +8,7 @@
 import UIKit
 
 protocol IrregularEventViewControllerDelegate: AnyObject {
+    func appendIrregularTracker(tracker: Tracker)
     func addNewIrregular(_ trackerCategory: TrackerCategory)
 }
 
@@ -17,6 +18,7 @@ final class IrregularEventViewController: UIViewController {
     // MARK: - Variables
     
     weak var delegate: IrregularEventViewControllerDelegate?
+    private var trackerVC = TrackersViewController()
     
     private let colors: [UIColor] = [
         .ypColorSelection1, .ypColorSelection2, .ypColorSelection3,
@@ -134,7 +136,10 @@ final class IrregularEventViewController: UIViewController {
                     let color = selectedColor
         else { return }
         if let delegate = delegate {
-            delegate.addNewIrregular(TrackerCategory(header: category, trackersArray: [Tracker(id: UUID(), name: text, color: color, emoji: emoji, schedule: chosenDays)]))
+            let newTracker = Tracker(id: UUID(), name: text, color: color, emoji: emoji, schedule: chosenDays)
+//            delegate.addNewIrregular(TrackerCategory(header: category, trackersArray: [Tracker(id: UUID(), name: text, color: color, emoji: emoji, schedule: chosenDays)]))
+            delegate.addNewIrregular(TrackerCategory(header: category, trackersArray: [newTracker]))
+            trackerVC.appendTracker(tracker: newTracker)
         } else {
             print("Delegate error")
         }
@@ -147,18 +152,12 @@ final class IrregularEventViewController: UIViewController {
            category != nil,
            selectedEmoji != nil {
            //  selectedColor != nil {
-            print("Text: \(text)")
-            print("Category: \(category)")
-            print("Selected Emoji: \(selectedEmoji)")
-            print("Selected Color: \(selectedColor)")
+            
             createIrregular.isEnabled = true
             createIrregular.backgroundColor = UIColor(named: "YP Black (day)")
             createIrregular.setTitleColor(UIColor(named: "YP White (day)"), for: .normal)
         } else {
-            
-//            print("Category: \(category)")
-//            print("Selected Emoji: \(selectedEmoji)")
-//            print("Selected Color: \(selectedColor)")
+   
             createIrregular.isEnabled = false
             createIrregular.backgroundColor = UIColor(named: "YP Gray")
         }
