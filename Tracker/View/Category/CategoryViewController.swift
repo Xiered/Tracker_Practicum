@@ -165,7 +165,7 @@ extension CategoryViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: CategoryCell.reuseIdentifier, for: indexPath) as! CategoryCell
         cell.backgroundColor = UIColor(named: "YP Background (day)")
         cell.textLabel?.text =  categoryArray[indexPath.row]
-        cell.textLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
 
         return cell
     }

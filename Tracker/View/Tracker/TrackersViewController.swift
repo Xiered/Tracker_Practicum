@@ -20,7 +20,35 @@ final class TrackersViewController: UIViewController {
     private var completedTrackers: Set<TrackerRecord> = []
     private var newCategories: [TrackerCategory] = []
     private var currentDate: Date = Date()
+    private var trackerRecordStore = TrackerRecordStore()
+    
+    private var trackerStore: TrackerStore!
 
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        let context = (UIApplication.shared.delegate as! AppDelegate).context
+        
+        do {
+            trackerStore = try TrackerStore(context: context)
+        } catch {
+            fatalError("Ошибка инициализации TrackerStore: \(error)")
+        }
+        trackerStore.delegate = self
+        trackerStore.loadTrackers()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        let context = (UIApplication.shared.delegate as! AppDelegate).context
+        do {
+            trackerStore = try TrackerStore(context: context)
+        } catch {
+            fatalError("Ошибка инициализации TrackerStore: \(error)")
+        }
+        trackerStore.delegate = self
+        trackerStore.loadTrackers()
+    }
+    
     // MARK: - Layout components
     
     private let datePicker: UIDatePicker = {
@@ -110,6 +138,8 @@ final class TrackersViewController: UIViewController {
         configureCollectionView()
         createLayout()
         searchTextField.delegate = self
+      trackerStore.delegate = self
+      trackers = trackerStore.trackers
         reloadPlaceholder(for: .noTrackers)
         datePickerValueChanged(datePicker)
     }
@@ -171,10 +201,10 @@ final class TrackersViewController: UIViewController {
                 
             case .noTrackers:
                 imagePlaceholder.image = UIImage(named: "trackersPlaceholder")
-                textPlaceholder.text = "Что будем отслеживать"
+                textPlaceholder.text = "Что будем отслеживать?"
                 
             case .notFoundTrackers:
-                imagePlaceholder.image = UIImage(named: "notFountPlaceholder")
+                imagePlaceholder.image = UIImage(named: "notFoundPlaceholder")
                 textPlaceholder.text = "Ничего не найдено"
             }
         } else {
@@ -182,19 +212,19 @@ final class TrackersViewController: UIViewController {
             textPlaceholder.isHidden = true
         }
     }
-        
+
     private func reloadVisibleCategories() {
-        
         currentDate = datePicker.date
         let calendar = Calendar.current
-        let filterDayOfWeek = calendar.component(.weekday, from: currentDate) - 1
+        let selectedDayOfWeek = calendar.component(.weekday, from: currentDate) - 1
         let filterText = (searchTextField.text ?? "").lowercased()
 
         newCategories = categories.compactMap { category in
             let trackers = category.trackersArray.filter { tracker in
-                let textCondition = filterText.isEmpty ||
-                tracker.name.lowercased().contains(filterText)
-                let dateCondition = tracker.schedule.contains(where: {$0 == filterDayOfWeek})
+                let textCondition = filterText.isEmpty || tracker.name.lowercased().contains(filterText)
+                let dayOfWeek = tracker.schedule?.first ?? -1
+                let dateCondition = tracker.schedule?.contains(selectedDayOfWeek) ?? false
+
                 return textCondition && dateCondition
             }
             if trackers.isEmpty {
@@ -252,7 +282,6 @@ extension TrackersViewController: UICollectionViewDelegate{
 extension TrackersViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        //CGSize(width: 167, height: 148)
         return CGSize(width: collectionView.bounds.width / 2 - 5, height: (collectionView.bounds.width / 2 - 5) * 0.88)
     }
     
@@ -314,17 +343,18 @@ extension TrackersViewController:TrackerViewDelegate {
 }
 
 extension TrackersViewController: HabitViewControllerDelegate {
-    
     func appendTracker(tracker: Tracker) {
         self.trackers.append(tracker)
-        self.categories = self.categories.map { category in
-            var updatedTrackers = category.trackersArray
-            updatedTrackers.append(tracker)
-            return TrackerCategory(header: category.header, trackersArray: updatedTrackers)
+        
+        do {
+            try self.trackerStore.addNewTracker(tracker)
+            try self.trackerStore.context.save()
+        } catch {
+            print("Ошибка сохранения нового трекера: \(error)")
         }
         reloadVisibleCategories()
     }
-    
+
     func reload() {
         self.collectionView.reloadData()
     }
@@ -372,6 +402,18 @@ extension TrackersViewController: IrregularEventViewControllerDelegate {
         datePickerValueChanged(datePicker)
         collectionView.reloadData()
     }
+    
+    func appendIrregularTracker(tracker: Tracker) {
+        self.trackers.append(tracker)
+        
+        do {
+            try self.trackerStore.addNewTracker(tracker)
+            try self.trackerStore.context.save()
+        } catch {
+            print("Ошибка сохранения нового трекера: \(error)")
+        }
+        reloadVisibleCategories()
+    }
 }
 
 extension TrackersViewController: UITextFieldDelegate {
@@ -399,8 +441,8 @@ extension TrackersViewController: UITextFieldDelegate {
             var trackers: [Tracker] = []
             for tracker in category.trackersArray {
                 let containsName = tracker.name.contains(textForSearching)
-                let containsSchedule = tracker.schedule.contains(weekDay)
-                if containsName && containsSchedule {
+                let containsSchedule = tracker.schedule?.contains(weekDay)
+                if containsName && (containsSchedule != nil) {
                     trackers.append(tracker)
                 }
             }
@@ -409,5 +451,19 @@ extension TrackersViewController: UITextFieldDelegate {
             }
         }
         return searchedCategories
+    }
+}
+
+extension TrackersViewController: TrackerStoreDelegate {
+    func store() {
+        
+        trackers = trackerStore.trackers
+        
+        let allTrackersCategory = TrackerCategory(header: "", trackersArray: trackers)
+        
+        categories = [allTrackersCategory]
+
+        reloadVisibleCategories()
+        collectionView.reloadData()
     }
 }

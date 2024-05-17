@@ -17,7 +17,6 @@ final class TrackerViewCell: UICollectionViewCell {
     weak var delegate: TrackerViewDelegate?
     private var viewModel: CellModel?
     
-    // Substrate with color
     private let cardBackground: UIView = {
         let cardView = UIView()
         cardView.translatesAutoresizingMaskIntoConstraints = false
@@ -25,7 +24,7 @@ final class TrackerViewCell: UICollectionViewCell {
         cardView.layer.cornerRadius = 16
         return cardView
     }()
-    // Emoji
+
     private let emojiLabel: UILabel = {
         let emojiLabel = UILabel()
         emojiLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -36,7 +35,7 @@ final class TrackerViewCell: UICollectionViewCell {
         emojiLabel.backgroundColor = UIColor(named: "YP White (day)")
         return emojiLabel
     }()
-    // Task label
+   
     private let taskLabel: UILabel = {
         let taskLabel = UILabel()
         taskLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -44,7 +43,7 @@ final class TrackerViewCell: UICollectionViewCell {
         taskLabel.font = UIFont.systemFont(ofSize: 12)
         return taskLabel
     }()
-    // Label with day count
+  
     private let dayCountLabel: UILabel = {
         let dayLabel = UILabel()
         dayLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +51,7 @@ final class TrackerViewCell: UICollectionViewCell {
         dayLabel.font = UIFont.systemFont(ofSize: 12)
         return dayLabel
     }()
-    // Approve button
+
     private let checkButton: UIButton = {
         let checkButton = UIButton()
         checkButton.translatesAutoresizingMaskIntoConstraints = false
@@ -61,7 +60,7 @@ final class TrackerViewCell: UICollectionViewCell {
         checkButton.layer.masksToBounds = true
         checkButton.layer.cornerRadius = 16
         checkButton.imageView?.contentMode = .scaleAspectFill
-        // addTarget
+        
         return checkButton
     }()
     
@@ -151,10 +150,8 @@ final class TrackerViewCell: UICollectionViewCell {
            symbolImage = UIImage(systemName: "checkmark", withConfiguration: symbolConfig)
             dayCheckButton.layer.opacity = 0.3
         } else {
-            // working with system image
-            symbolImage = UIImage(systemName: "plus", withConfiguration: symbolConfig)
-         // image from figma   symbolImage = UIImage(named: "plusTracker")?.withTintColor((dayCheckButton.backgroundColor) ?? .gray)
             
+            symbolImage = UIImage(systemName: "plus", withConfiguration: symbolConfig)
             dayCheckButton.layer.opacity = 1.0
         }
         dayCheckButton.setImage(symbolImage, for: .normal)
