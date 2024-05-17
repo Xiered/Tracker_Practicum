@@ -10,13 +10,7 @@ import UIKit
 final class HabitEmojiCell: UICollectionViewCell {
     
     static let id = "HabitEmojiCell"
-    
-//    var emoji: String? {
-//        didSet {
-//            emojiLabel.text = emoji
-//        }
-//    }
-    
+        
     let emojiLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false

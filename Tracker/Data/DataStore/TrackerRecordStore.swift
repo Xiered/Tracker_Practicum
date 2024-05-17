@@ -86,4 +86,3 @@ extension TrackerRecordStore: NSFetchedResultsControllerDelegate {
         delegate?.storeRecord()
     }
 }
-

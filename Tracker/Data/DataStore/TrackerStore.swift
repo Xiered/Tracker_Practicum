@@ -74,7 +74,6 @@ final class TrackerStore: NSObject {
             try context.save()
         }
     }
-
     
     func tracker(from trackerCoreData: TrackerCoreData) throws -> Tracker {
         guard let id = trackerCoreData.id,
@@ -97,7 +96,6 @@ final class TrackerStore: NSObject {
     }
 
     func loadTrackers() {
-        
         let fetchRequest: NSFetchRequest<TrackerCoreData> = TrackerCoreData.fetchRequest()
         
         do {

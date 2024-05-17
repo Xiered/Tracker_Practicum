@@ -75,7 +75,6 @@
 		C4391FBD2BE4E724001B5685 /* HabitOrIrregularViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitOrIrregularViewController.swift; sourceTree = "<group>"; };
 		C4391FBF2BE4E771001B5685 /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		C4391FC12BE4EA89001B5685 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
-		C4C52DD12BF69474003B87EB /* ForReviewer.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ForReviewer.md; sourceTree = "<group>"; };
 		C4DBDDD12BEE501100714BF7 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		C4DBDDD32BEE502100714BF7 /* TrackerStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerStore.swift; sourceTree = "<group>"; };
 		C4DBDDD52BEE502D00714BF7 /* TrackerCategoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategoryStore.swift; sourceTree = "<group>"; };
@@ -127,7 +126,6 @@
 				C40C54D92BE142E800028145 /* View */,
 				C40C54DA2BE142F100028145 /* Models */,
 				C40C54E12BE1449500028145 /* Cell */,
-				C4C52DD12BF69474003B87EB /* ForReviewer.md */,
 			);
 			path = Tracker;
 			sourceTree = "<group>";

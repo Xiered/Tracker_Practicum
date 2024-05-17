@@ -223,7 +223,6 @@ final class TrackersViewController: UIViewController {
             let trackers = category.trackersArray.filter { tracker in
                 let textCondition = filterText.isEmpty || tracker.name.lowercased().contains(filterText)
                 let dayOfWeek = tracker.schedule?.first ?? -1
-//                let dateCondition = dayOfWeek == selectedDayOfWeek
                 let dateCondition = tracker.schedule?.contains(selectedDayOfWeek) ?? false
 
                 return textCondition && dateCondition
@@ -283,7 +282,6 @@ extension TrackersViewController: UICollectionViewDelegate{
 extension TrackersViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        //CGSize(width: 167, height: 148)
         return CGSize(width: collectionView.bounds.width / 2 - 5, height: (collectionView.bounds.width / 2 - 5) * 0.88)
     }
     

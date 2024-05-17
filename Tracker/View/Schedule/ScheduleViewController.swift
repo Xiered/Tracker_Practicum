@@ -96,7 +96,7 @@ final class ScheduleViewController: UIViewController {
     private func setupScheduleLayout() {
         view.backgroundColor = UIColor(named: "YP White (day)")
         navigationItem.title = "Расписание"
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "YP Black (day)") ?? UIColor.black] // "YP Background (day)" ?? UIColor.black]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "YP Black (day)") ?? UIColor.black] 
         navigationItem.hidesBackButton = true
 
         weekdayTable.dataSource = self

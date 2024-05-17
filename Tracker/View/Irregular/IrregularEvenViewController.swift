@@ -12,7 +12,6 @@ protocol IrregularEventViewControllerDelegate: AnyObject {
     func addNewIrregular(_ trackerCategory: TrackerCategory)
 }
 
-// Controller for irregular event creating
 final class IrregularEventViewController: UIViewController {
     
     // MARK: - Variables
@@ -137,7 +136,7 @@ final class IrregularEventViewController: UIViewController {
         else { return }
         if let delegate = delegate {
             let newTracker = Tracker(id: UUID(), name: text, color: color, emoji: emoji, schedule: chosenDays)
-//            delegate.addNewIrregular(TrackerCategory(header: category, trackersArray: [Tracker(id: UUID(), name: text, color: color, emoji: emoji, schedule: chosenDays)]))
+            
             delegate.addNewIrregular(TrackerCategory(header: category, trackersArray: [newTracker]))
             trackerVC.appendTracker(tracker: newTracker)
         } else {
@@ -151,8 +150,6 @@ final class IrregularEventViewController: UIViewController {
            !text.isEmpty,
            category != nil,
            selectedEmoji != nil {
-           //  selectedColor != nil {
-            
             createIrregular.isEnabled = true
             createIrregular.backgroundColor = UIColor(named: "YP Black (day)")
             createIrregular.setTitleColor(UIColor(named: "YP White (day)"), for: .normal)
