@@ -15,20 +15,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
        
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
+       
+        let defaults = UserDefaults.standard
+        let isFirstLaunch = !defaults.bool(forKey: "HasLaunchedBefore")
         
-        window?.rootViewController = OnboardingViewController()
+        if isFirstLaunch {
+            defaults.set(true, forKey: "HasLaunchedBefore")
+            window?.rootViewController = OnboardingViewController()
+        } else {
+            window?.rootViewController = TabBarViewController()
+        }
         window?.makeKeyAndVisible()
-        
-//        let defaults = UserDefaults.standard
-//        let isFirstLaunch = !defaults.bool(forKey: "HasLaunchedBefore")
-//        
-//        if isFirstLaunch {
-//            defaults.set(true, forKey: "HasLaunchedBefore")
-//            window?.rootViewController = OnboardingViewController()
-//        } else {
-//            window?.rootViewController = TabBarViewController()
-//        }
-//        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
