@@ -233,6 +233,7 @@ final class IrregularEventViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "YP White (day)")
+        irregularTextField.delegate = self
         setupIrregularLayout()
         setupEmojiCollectionView()
         setupColorCollectionView()
@@ -300,16 +301,17 @@ extension IrregularEventViewController: UITextFieldDelegate {
             checkButtonAccessibility()
         }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if category == nil {
-            showReminderAlert()
-            textField.resignFirstResponder()
-        }
-    }
+//    func textFieldDidBeginEditing(_ textField: UITextField) {
+//        if category == nil {
+//            // showReminderAlert()
+//            textField.resignFirstResponder()
+//        }
+//    }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        checkButtonAccessibility()
+        
         irregularTextField.resignFirstResponder()
+        checkButtonAccessibility()
         return true
     }
 
@@ -317,12 +319,12 @@ extension IrregularEventViewController: UITextFieldDelegate {
         textField.resignFirstResponder() // Closing keyboard
     }
 
-    private func showReminderAlert() {
-        let alertController = UIAlertController(title: "Напоминание", message: "Сначала выберите Категорию", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alertController.addAction(okAction)
-        present(alertController, animated: true, completion: nil)
-    }
+//    private func showReminderAlert() {
+//        let alertController = UIAlertController(title: "Напоминание", message: "Сначала выберите Категорию", preferredStyle: .alert)
+//        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+//        alertController.addAction(okAction)
+//        present(alertController, animated: true, completion: nil)
+//    }
 }
 
 extension IrregularEventViewController: CategoryViewControllerDelegate {
