@@ -233,7 +233,7 @@ final class HabitViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        habitTextField.delegate = self
         configureHabitLayout()
         setupColorCollectionView()
         setupEmojiCollectionView()
@@ -431,5 +431,14 @@ extension HabitViewController: UICollectionViewDelegate {
             let cell = collectionView.cellForItem(at: indexPath) as? HabitColorCell
             cell?.layer.borderWidth = 0
         }
+    }
+}
+
+extension HabitViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        habitTextField.resignFirstResponder()
+        checkButtonAccessibility()
+        return true
     }
 }
