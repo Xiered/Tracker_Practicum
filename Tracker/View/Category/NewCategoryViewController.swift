@@ -17,6 +17,8 @@ final class NewCategoryViewController: UIViewController {
     
     weak var delegate: NewCategoryViewControllerDelegate?
     
+    private var viewModel = CategoryViewModel()
+    
     private let newCategoryTextField: UITextField = {
         let newCategoryTextField = UITextField()
         newCategoryTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -83,6 +85,7 @@ final class NewCategoryViewController: UIViewController {
         readyButton.isEnabled = true
         readyButton.backgroundColor = UIColor(named: "YP Gray")
         configureNewCategoryLayout()
+        
     }
     
 }

@@ -7,35 +7,24 @@
 
 import UIKit
 
-final class CategoryViewModel {
-    
-    static let shared = CategoryViewModel()
-    private var categoryStore = TrackerCategoryStore.shared
-    private (set) var categories: [TrackerCategory] = []
-    
-    @Observable
-    private (set) var selectedCategory: TrackerCategory?
+class CategoryViewModel: TrackerCategoryStoreDelegate {
+
+    private var categories: [TrackerCategoryCoreData] = []
     
     init() {
-        categoryStore.delegate = self
-        self.categories = categoryStore.trackerCategories
+        TrackerCategoryStore.shared.delegate = self
     }
     
-    func addCategory(_ toAdd: String) {
-        try! self.categoryStore.addNewCategory(TrackerCategory(header: toAdd, trackersArray: []))
+    func fetchCategories() {
+        categories = TrackerCategoryStore.shared.trackerCategories
     }
     
-    func addTrackerToCategory(to header: String?, tracker: Tracker) {
-        try! self.categoryStore.addTrackerToCategory(to: header, tracker: tracker)
+    func addCategory(_ category: String) {
+        TrackerCategoryStore.shared.addNewCategory(category)
     }
     
-    func selectCategory(_ at: Int) {
-        self.selectedCategory = self.categories[at]
+    func storeCategory() {
+        fetchCategories()
     }
 }
 
-extension CategoryViewModel: TrackerCategoryStoreDelegate {
-    func storeCategory() {
-        self.categories = categoryStore.trackerCategories
-    }
-}

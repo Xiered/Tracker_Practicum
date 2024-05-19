@@ -17,6 +17,9 @@ final class CategoryViewController: UIViewController {
     
     weak var delegate: CategoryViewControllerDelegate?
     
+    private var viewModel = CategoryViewModel()
+    private weak var CategoryTableView: UITableView!
+
     private var categoryTableView: UITableView = {
         let categoryTableView = UITableView()
         categoryTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -131,6 +134,15 @@ final class CategoryViewController: UIViewController {
         
         configureCategoryLayout()
         hidePlaceholders()
+        
+        //viewModel.categoryStoreDelegate = self
+        viewModel.fetchCategories()
+        
+        categoryTableView.dataSource = self
+                categoryTableView.delegate = self
+                categoryTableView.register(CategoryCell.self, forCellReuseIdentifier: CategoryCell.reuseIdentifier)
+                categoryTableView.separatorColor = UIColor(named: "YP Gray")
+                categoryTableView.separatorStyle = .singleLine
     }
     
     @objc private func addCategoryButtonTapped() {
@@ -209,5 +221,13 @@ extension CategoryViewController: NewCategoryViewControllerDelegate {
         updateCategoryTableViewHeight()
         categoryTableView.reloadData()
         hidePlaceholders()
+    }
+}
+
+extension CategoryViewController: TrackerCategoryStoreDelegate {
+  
+    func storeCategory() {
+        viewModel.fetchCategories()
+        categoryTableView.reloadData()
     }
 }
